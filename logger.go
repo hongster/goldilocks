@@ -6,9 +6,10 @@ import (
 )
 
 type Logger struct {
-	infoLog *log.Logger
+	infoLog    *log.Logger
 	warningLog *log.Logger
-	errorLog *log.Logger
+	errorLog   *log.Logger
+	fatalLog   *log.Logger
 }
 
 /*
@@ -16,9 +17,10 @@ Return a default logger.
 */
 func NewLogger() (logger *Logger) {
 	return &Logger{
-		infoLog: log.New(os.Stdout, "INFO: ", log.LstdFlags),
+		infoLog:    log.New(os.Stdout, "INFO: ", log.LstdFlags),
 		warningLog: log.New(os.Stdout, "WARNING: ", log.LstdFlags),
-		errorLog: log.New(os.Stderr, "ERROR: ", log.LstdFlags),
+		errorLog:   log.New(os.Stderr, "ERROR: ", log.LstdFlags),
+		fatalLog:   log.New(os.Stderr, "FATAL: ", log.LstdFlags),
 	}
 }
 
@@ -62,4 +64,18 @@ Print formatted output to Stderr by default.
 */
 func (logger *Logger) Errorf(format string, v ...interface{}) {
 	logger.errorLog.Printf(format, v...)
+}
+
+/*
+Print output to Stderr and exit with os.Exit(1).
+*/
+func (logger *Logger) Fatal(v ...interface{}) {
+	logger.fatalLog.Fatalln(v...)
+}
+
+/*
+Print formatted output to Stderr and exit with os.Exit(1).
+*/
+func (logger *Logger) Fatalf(format string, v ...interface{}) {
+	logger.fatalLog.Fatalf(format, v...)
 }
