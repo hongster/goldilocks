@@ -21,6 +21,9 @@ Example
 
 		logger.Error("Testing")
 		logger.Errorf("%v Bar", "Foo")
+
+		logger.Fatal("Testing")
+		logger.Fatalf("%v Bar", "Foo")
 	}
 
 Resultant output
@@ -31,3 +34,5 @@ Resultant output
 	WARNING: 2016/04/26 01:02:02 Foo Bar
 	ERROR: 2016/04/26 01:02:02 Testing
 	ERROR: 2016/04/26 01:02:02 Foo Bar
+	FATAL: 2016/04/26 01:02:02 Testing
+	FATAL: 2016/04/26 01:02:02 Foo Bar
